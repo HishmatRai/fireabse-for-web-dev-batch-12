@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script src="./../js/firebase-config.js"></script>
+  </head>
+  <body>
+    <h1>Log In Page</h1>
+      <form onsubmit="sigInHandler(); return false">
+      <input type="email" placeholder="Email Address" required id="email" />
+      <input type="password" placeholder="Password" required id="password" />
+      <p id="message"></p>
+      <button id="button">Log In</button>
+      <a href="./sign-up.html">Sign Up</a>
+    </form>
+    <hr />
+    <button onclick="loginWithGoogleHandler()">Login with Google</button>
+    <hr />
+    <a href="./forgot-password.html">Fortgot Password?</a>
+  </body>
+  <script src="./../js/signin.js"></script>
+</html>
