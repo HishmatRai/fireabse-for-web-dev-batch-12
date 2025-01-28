@@ -61,3 +61,14 @@ const loginWithFacebookHandler = () => {
       console.log("error", error);
     });
 };
+
+// show password handler
+let isShow = false;
+const showPasswordHandler = () => {
+  isShow = !isShow;
+  if (isShow) {
+    password.type = "text";
+  } else {
+    password.type = "password";
+  }
+};
