@@ -47,3 +47,17 @@ const loginWithGoogleHandler = () => {
       console.log("errorMessage", errorMessage);
     });
 };
+
+// facebook
+const loginWithFacebookHandler = () => {
+  var provider = new firebase.auth.FacebookAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      console.log("result", result);
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};

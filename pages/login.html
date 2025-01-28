@@ -10,7 +10,7 @@
   </head>
   <body>
     <h1>Log In Page</h1>
-      <form onsubmit="sigInHandler(); return false">
+    <form onsubmit="sigInHandler(); return false">
       <input type="email" placeholder="Email Address" required id="email" />
       <input type="password" placeholder="Password" required id="password" />
       <p id="message"></p>
@@ -19,6 +19,8 @@
     </form>
     <hr />
     <button onclick="loginWithGoogleHandler()">Login with Google</button>
+    <hr />
+    <button onclick="loginWithFacebookHandler()">Login with Facebook</button>
     <hr />
     <a href="./forgot-password.html">Fortgot Password?</a>
   </body>
