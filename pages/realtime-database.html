@@ -4,13 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Realtime Database</title>
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
-    <script src="./../js/firebase-config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-auth.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCoZFUmGJRM2DSJSKaDe4JL2CKJ2XWZEaA",
+        authDomain: "web-dev-batch-12.firebaseapp.com",
+        databaseURL: "https://web-dev-batch-12-default-rtdb.firebaseio.com",
+        projectId: "web-dev-batch-12",
+        storageBucket: "web-dev-batch-12.firebasestorage.app",
+        messagingSenderId: "556867707943",
+        appId: "1:556867707943:web:2db6c24c1c1fabd756da02",
+        measurementId: "G-2SE9CPGNFL",
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      #loading {
+        display: block;
+      }
+      #data {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <h1>Realtime Database</h1>
-    <button onclick="addHandler()">Add</button>
+    <form onsubmit="AddHandler(); return false">
+      <input type="text" placeholder="type here..." id="input" required />
+      <button>Add</button>
+    </form>
+    <h1>List</h1>
+    <img
+      id="loading"
+      src="https://media4.giphy.com/media/3oEjI6SIIHBdRxXI40/200w.gif?cid=6c09b952k8jgqs1qaavopr6vrwhez5w3c11i0yk7apgbohwt&ep=v1_gifs_search&rid=200w.gif&ct=g"
+      height="100"
+    />
+    <div id="data">
+
+    </div>
   </body>
   <script src="./../js/realtime-database.js"></script>
 </html>
