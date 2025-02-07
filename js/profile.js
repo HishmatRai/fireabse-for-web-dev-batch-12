@@ -1,20 +1,33 @@
-let displayName = document.getElementById("display-name");
-let email = document.getElementById("email");
+let firstName = document.getElementById("first-name");
+let lastName = document.getElementById("last-name");
 let phoneNumber = document.getElementById("phone-number");
-let uid = document.getElementById("uid");
-let photoURL = document.getElementById("photo-url");
-let profileImage = document.getElementById("profile-image");
+let email = document.getElementById("email");
+let uid;
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     if (user.emailVerified) {
-      displayName.value = user.displayName;
-      email.value = user.email;
-      phoneNumber.value = user.phoneNumber;
-      uid.value = user.uid;
-      profileImage.src = user.photoURL
-        ? user.photoURL
-        : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s";
-      photoURL.value = user.photoURL;
+      uid = user.uid;
+      // get current user data
+      console.log(uid);
+      firebase
+        .database()
+        .ref("users/" + uid)
+        .on("value", (userREs) => {
+          console.log(userREs.val());
+          let user = userREs.val();
+          firstName.value = user.firstName;
+          lastName.value = user.lastName;
+          phoneNumber.value = user.phone;
+          email.value = user.email;
+        });
+      // displayName.value = user.displayName;
+      // email.value = user.email;
+      // phoneNumber.value = user.phoneNumber;
+      // uid.value = user.uid;
+      // profileImage.src = user.photoURL
+      //   ? user.photoURL
+      //   : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s";
+      // photoURL.value = user.photoURL;
     } else {
       window.location.assign("./email-verification.html");
     }
@@ -25,19 +38,28 @@ firebase.auth().onAuthStateChanged((user) => {
 
 // update
 const updateHandler = () => {
+  // firebase
+  //   .auth()
+  //   .currentUser.updateProfile({
+  //     displayName: displayName.value,
+  //     photoURL: photoURL.value,
+  //     phoneNumber: phoneNumber.value,
+  //   })
+  //   .then(() => {
+  //     console.log("Update successful");
+  //     profileImage.src = photoURL.value;
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error);
+  //   });
+
   firebase
-    .auth()
-    .currentUser.updateProfile({
-      displayName: displayName.value,
-      photoURL: photoURL.value,
-      phoneNumber: phoneNumber.value,
-    })
-    .then(() => {
-      console.log("Update successful");
-      profileImage.src = photoURL.value;
-    })
-    .catch((error) => {
-      console.log("error", error);
+    .database()
+    .ref("users/" + uid)
+    .update({
+      firstName: firstName.value,
+      lastName: lastName.value,
+      phone: phoneNumber.value,
     });
 };
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Todos</title>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+    <script src="./../js/firebase-config.js"></script>
+    <style>
+      #loading {
+        display: block;
+      }
+      #data {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="window.history.back()">Back</button>
+    <h1>My Todos</h1>
+    <img
+      id="loading"
+      src="https://i.gifer.com/ZKZg.gif"
+      height="150"
+    />
+    <div id="data"></div>
+  </body>
+  <script src="./../js/my-todos.js"></script>
+</html>
