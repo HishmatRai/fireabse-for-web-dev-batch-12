@@ -34,6 +34,7 @@ const signUpHandler = () => {
               phone: phone.value,
               email: email.value,
               password: password.value,
+            
             })
             .then(() => {
               setTimeout(() => {

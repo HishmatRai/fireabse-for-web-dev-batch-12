@@ -2,6 +2,7 @@ let firstName = document.getElementById("first-name");
 let lastName = document.getElementById("last-name");
 let phoneNumber = document.getElementById("phone-number");
 let email = document.getElementById("email");
+let profileURL = document.getElementById("profile-image");
 let uid;
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
@@ -19,6 +20,15 @@ firebase.auth().onAuthStateChanged((user) => {
           lastName.value = user.lastName;
           phoneNumber.value = user.phone;
           email.value = user.email;
+          profileURL.src = user.profileURL
+            ? user.profileURL
+            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s";
+          // if (user.profileURL) {
+          //   profileURL.src = user.profileURL;
+          // } else {
+          //   profileURL.src =
+          //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwdIVSqaMsmZyDbr9mDPk06Nss404fosHjLg&s";
+          // }
         });
       // displayName.value = user.displayName;
       // email.value = user.email;
@@ -120,4 +130,41 @@ const changePasswordHandler = () => {
         changePasswordMessage.style.color = "red";
       });
   }
+};
+
+// file upload
+let progress = document.getElementById("progress");
+let progressValue = document.getElementById("progress-value");
+const uploadHandler = (event) => {
+  progress.style.display = "block";
+  var storageRef = firebase.storage().ref();
+  var uploadTask = storageRef
+    .child(`profile-images/${uid}`)
+    .put(event.target.files[0]);
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+      progressValue.innerHTML = `${Math.floor(progress)} %`;
+      progressValue.style.width = `${Math.floor(progress)}%`;
+    },
+    (error) => {
+      // Handle unsuccessful uploads
+    },
+    () => {
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.log("File available at", downloadURL);
+        firebase
+          .database()
+          .ref("users/" + uid)
+          .update({
+            profileURL: downloadURL,
+          })
+          .then(() => {
+            progress.style.display = "none";
+          });
+      });
+    }
+  );
 };
