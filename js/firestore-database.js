@@ -23,6 +23,9 @@ let addHandler = () => {
     .collection("testing")
     .add({
       name: input.value,
+      id: "",
+      isVerified: false,
+      phone:""
     })
     .then((res) => {
       console.log("Document successfully written!", res);
@@ -61,19 +64,39 @@ let addHandler = () => {
 //     console.log(error);
 //   });
 
+// firebase
+//   .firestore()
+//   .collection("testing")
+//   .where("isVerified", "==", false)
+//   .get()
+//   // onSnapshot
+//   .then((res) => {
+//     res.forEach((dataRes) => {
+//       // if(dataRes.data().isVerified){
+// // 
+//         console.log(dataRes.data());
+//       // }
+//     });
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+
 firebase
   .firestore()
   .collection("testing")
-  .get()
-  // onSnapshot
-  .then((res) => {
-    res.forEach((dataRes) => {
-      console.log(dataRes.data());
+  .where("name", "==", true)
+  .onSnapshot((querySnapshot) => {
+    // var cities = [];
+    querySnapshot.forEach((dataRes) => {
+        // cities.push(doc.data());
+        console.log(dataRes.data());
     });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    // console.log("Current cities in CA: ", cities);
+});
+
+
 
 // edit
 const editHandler = () => {
